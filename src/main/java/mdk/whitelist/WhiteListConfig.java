@@ -14,10 +14,8 @@ public class WhiteListConfig {
     public boolean replace_vanila = false;
     @SerializedName("char")
     public String char_set = "qwertyuiopasdfghjklzxcvbnm1234567890_QWERTYUIOPSADFGHJKLZXCVBNM";
-    @SerializedName("char_not")
-    public String char_not_aloved_msg = "Username not allowed";
     @SerializedName("file")
-    public String file = "whitelist_reborn";
-    @SerializedName("no.whitelist.msg")
-    public String no_whitelist_msg = "You're not that awesome to be whitelisted.";
+    public String file = "whitelist_reload";
+    @SerializedName("lang")
+    public String lang = "en";
 }

@@ -1,0 +1,16 @@
+#{whitelist}
+.set=Whitelist set %s
+.add=Whitelist add %s
+.remove=Whitelist remove %s
+.err=Error.
+.kick=You're not that awesome to be whitelisted.
+#end
+
+#{spigot}
+.replace.vanila.1=replace vanila set %s
+.replace.vanila.2=Please restart the server.
+#end
+
+#{char}
+.kick=Username not allowed
+#end

@@ -2,7 +2,7 @@ package mdk.whitelist;
 
 import com.google.common.collect.ImmutableList;
 import mdk.mutils.api.config.SimpleConfig;
-import mdk.whitelist.bungee.WhiteListPlugin;
+import mdk.mutils.api.config.Static;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -29,7 +29,7 @@ public class WhiteListCommand extends Command {
             "false"
     };
     public WhiteListCommand(IL l) {
-        super(l.getConfig0().getConfig().replace_vanila ? "rwhitelist" : "whitelist");
+        super(l.getConfig0().getConfig().replace_vanila ? "whitelist" :  "rwhitelist");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class WhiteListCommand extends Command {
             {
                 SimpleConfig<WhiteListConfig> config = WhiteList.config;
                 config.getConfig().enable = false;
-                sender.sendMessage("Whitelist set false");
+                sender.sendMessage(Static.lang.format("whitelist.set", false));
                 try {
                     config.Save();
                 } catch (Exception e) {
@@ -55,7 +55,7 @@ public class WhiteListCommand extends Command {
             {
                 SimpleConfig<WhiteListConfig> config = WhiteList.config;
                 config.getConfig().enable = true;
-                sender.sendMessage("Whitelist set true");
+                sender.sendMessage(Static.lang.format("whitelist.set", true));
                 try {
                     config.Save();
                 } catch (Exception e) {
@@ -64,20 +64,20 @@ public class WhiteListCommand extends Command {
                 break;
             }
             case "add": {
-                if (WhiteListPlugin.list.add(args[1])) {
-                    sender.sendMessage("Whitelist add "+ args[1]);
+                if (WhiteList.list.add(args[1])) {
+                    sender.sendMessage(Static.lang.format("whitelist.add", args[1]));
                 }
                 else {
-                    sender.sendMessage("Error");
+                    sender.sendMessage(Static.lang.get("whitelist.err"));
                 }
                 break;
             }
             case "remove": {
-                if (WhiteListPlugin.list.remove(args[1])) {
-                    sender.sendMessage("Whitelist remove "+ args[1]);
+                if (WhiteList.list.remove(args[1])) {
+                    sender.sendMessage(Static.lang.format("whitelist.remove", args[1]));
                 }
                 else {
-                    sender.sendMessage("Error");
+                    sender.sendMessage(Static.lang.get("whitelist.err"));
                 }
                 break;
             }
@@ -108,8 +108,8 @@ public class WhiteListCommand extends Command {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                sender.sendMessage("replace vanila set " + args[1]);
-                sender.sendMessage("Please restart the server.");
+                sender.sendMessage(Static.lang.format("spigot.replace.vanila.1", args[1]));
+                sender.sendMessage(Static.lang.get("spigot.replace.vanila.2"));
 
             }
         }
@@ -156,7 +156,7 @@ public class WhiteListCommand extends Command {
 
                 Collections.sort(matchedPlayers, String.CASE_INSENSITIVE_ORDER);
                 return matchedPlayers;
-            } else if (args[0].equalsIgnoreCase("char")) {
+            } else if (args[0].equalsIgnoreCase("char") || args[0].equalsIgnoreCase("replace")) {
                 String lastWord = args[args.length - 1];
                 ArrayList<String> matchedPlayers = new ArrayList();
                 Iterator var7 = Arrays.stream(w2).iterator();

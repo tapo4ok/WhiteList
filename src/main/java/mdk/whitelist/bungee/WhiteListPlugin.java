@@ -2,6 +2,7 @@ package mdk.whitelist.bungee;
 
 import mdk.mutils.api.config.Config;
 import mdk.mutils.api.config.SimpleConfig;
+import mdk.mutils.api.config.Static;
 import mdk.whitelist.AWhiteList;
 import mdk.whitelist.IL;
 import mdk.whitelist.WhiteListConfig;
@@ -12,9 +13,10 @@ public class WhiteListPlugin extends Plugin implements IL {
     public static AWhiteList list;
     @Override
     public void onEnable() {
+        config = new SimpleConfig<>(WhiteListConfig.class, Config.Type.JSON, getLogger(), getDataFolder());
+        Static.lang.load(this.getClass().getClassLoader().getResourceAsStream(String.format("%s.txt", config.getConfig().lang)));
         getProxy().getPluginManager().registerListener(this, new Event());
         this.getProxy().getPluginManager().registerCommand(this, new WhiteListCommand());
-        config = new SimpleConfig<>(WhiteListConfig.class, Config.Type.JSON, getLogger(), getDataFolder());
         list = new AWhiteList(this);
     }
 

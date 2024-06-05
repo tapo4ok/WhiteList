@@ -2,6 +2,7 @@ package mdk.whitelist.bungee;
 
 import com.google.common.collect.ImmutableList;
 import mdk.mutils.api.config.SimpleConfig;
+import mdk.mutils.api.config.Static;
 import mdk.whitelist.WhiteListConfig;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -43,7 +44,7 @@ public class WhiteListCommand extends Command implements TabExecutor {
             {
                 SimpleConfig<WhiteListConfig> config = WhiteListPlugin.config;
                 config.getConfig().enable = false;
-                sender.sendMessage(new TextComponent("Whitelist set false"));
+                sender.sendMessage(new TextComponent(Static.lang.format("whitelist.set", false)));
                 try {
                     config.Save();
                 } catch (Exception e) {
@@ -55,7 +56,7 @@ public class WhiteListCommand extends Command implements TabExecutor {
             {
                 SimpleConfig<WhiteListConfig> config = WhiteListPlugin.config;
                 config.getConfig().enable = true;
-                sender.sendMessage(new TextComponent("Whitelist set true"));
+                sender.sendMessage(new TextComponent(Static.lang.format("whitelist.set", true)));
                 try {
                     config.Save();
                 } catch (Exception e) {
@@ -65,19 +66,19 @@ public class WhiteListCommand extends Command implements TabExecutor {
             }
             case "add": {
                 if (WhiteListPlugin.list.add(args[1])) {
-                    sender.sendMessage(new TextComponent("Whitelist add "+ args[1]));
+                    sender.sendMessage(new TextComponent(Static.lang.format("whitelist.add", args[1])));
                 }
                 else {
-                    sender.sendMessage(new TextComponent("Error"));
+                    sender.sendMessage(new TextComponent(Static.lang.get("whitelist.err")));
                 }
                 break;
             }
             case "remove": {
                 if (WhiteListPlugin.list.remove(args[1])) {
-                    sender.sendMessage(new TextComponent("Whitelist remove "+ args[1]));
+                    sender.sendMessage(new TextComponent(Static.lang.format("whitelist.remove", args[1])));
                 }
                 else {
-                    sender.sendMessage(new TextComponent("Error"));
+                    sender.sendMessage(new TextComponent(Static.lang.get("whitelist.err")));
                 }
                 break;
             }

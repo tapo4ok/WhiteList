@@ -1,9 +1,8 @@
 package mdk.whitelist;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import mdk.mutils.api.config.Config;
 import mdk.mutils.api.config.SimpleConfig;
+import mdk.mutils.api.config.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -20,14 +19,17 @@ public final class WhiteList extends JavaPlugin implements IL {
     @Override
     public void onEnable() {
         config = new SimpleConfig<>(WhiteListConfig.class, Config.Type.JSON, getLogger(), getDataFolder());
-        if (config.getConfig().replace_vanila) {
-            config.getConfig().enable = getServer().hasWhitelist();
-            Bukkit.getServer().setWhitelist(false);
-        }
+        Static.lang.load(this.getClassLoader().getResourceAsStream(String.format("%s.txt", config.getConfig().lang)));
+
         list = new AWhiteList(this);
         PluginManager pm = Bukkit.getServer().getPluginManager();
 
         try {
+            if (config.getConfig().replace_vanila && getServer().hasWhitelist()) {
+                config.getConfig().enable = true;
+                getServer().setWhitelist(false);
+            }
+
             Field commandMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             commandMapField.setAccessible(true);
             CommandMap map = (CommandMap)commandMapField.get(Bukkit.getServer());
@@ -47,12 +49,12 @@ public final class WhiteList extends JavaPlugin implements IL {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         pm.registerEvents(new Event(), this);
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getServer().setWhitelist(config.getConfig().enable);
         try {
             config.Save();
         } catch (Exception e) {
