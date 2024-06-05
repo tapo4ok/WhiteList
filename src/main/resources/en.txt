@@ -3,7 +3,7 @@
 .add=Whitelist add %s
 .remove=Whitelist remove %s
 .err=Error.
-.kick=You're not that awesome to be whitelisted.
+.kick=you are not on the white list
 #end
 
 #{spigot}
