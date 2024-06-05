@@ -10,8 +10,6 @@ public class WhiteListConfig {
     public boolean enable = false;
     @SerializedName("check.Name")
     public boolean eneble_check_Name = false;
-    @SerializedName("replace.vanila")
-    public boolean replace_vanila = false;
     @SerializedName("char")
     public String char_set = "qwertyuiopasdfghjklzxcvbnm1234567890_QWERTYUIOPSADFGHJKLZXCVBNM";
     @SerializedName("file")

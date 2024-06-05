@@ -20,8 +20,7 @@ public class WhiteListCommand extends Command {
             "remove",
             "load",
             "list",
-            "char",
-            "replace"
+            "char"
     };
 
     private final String[] w2 = new String[] {
@@ -29,7 +28,7 @@ public class WhiteListCommand extends Command {
             "false"
     };
     public WhiteListCommand(IL l) {
-        super(l.getConfig0().getConfig().replace_vanila ? "whitelist" :  "rwhitelist");
+        super("rwhitelist");
     }
 
     @Override
@@ -100,19 +99,9 @@ public class WhiteListCommand extends Command {
                 sender.sendMessage("char set " + args[1]);
                 break;
             }
-            case "replace": {
-                SimpleConfig<WhiteListConfig> config = WhiteList.config;
-                config.getConfig().replace_vanila = Boolean.parseBoolean(args[1]);
-                try {
-                    config.Save();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                sender.sendMessage(Static.lang.format("spigot.replace.vanila.1", args[1]));
-                sender.sendMessage(Static.lang.get("spigot.replace.vanila.2"));
-
-            }
         }
+
+
 
 
         return true;
@@ -156,7 +145,7 @@ public class WhiteListCommand extends Command {
 
                 Collections.sort(matchedPlayers, String.CASE_INSENSITIVE_ORDER);
                 return matchedPlayers;
-            } else if (args[0].equalsIgnoreCase("char") || args[0].equalsIgnoreCase("replace")) {
+            } else if (args[0].equalsIgnoreCase("char")) {
                 String lastWord = args[args.length - 1];
                 ArrayList<String> matchedPlayers = new ArrayList();
                 Iterator var7 = Arrays.stream(w2).iterator();

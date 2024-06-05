@@ -25,26 +25,19 @@ public final class WhiteList extends JavaPlugin implements IL {
         PluginManager pm = Bukkit.getServer().getPluginManager();
 
         try {
-            if (config.getConfig().replace_vanila && getServer().hasWhitelist()) {
-                config.getConfig().enable = true;
-                getServer().setWhitelist(false);
-            }
-
             Field commandMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             commandMapField.setAccessible(true);
             CommandMap map = (CommandMap)commandMapField.get(Bukkit.getServer());
 
 
             Command command = new WhiteListCommand(this);
-            if (config.getConfig().replace_vanila) {
-                command.setPermission("minecraft.command.whitelist");
-            }
-            else {
-                Permission permission = new Permission("rwhitelist");
 
-                command.setPermission(permission.getName());
-                pm.addPermission(permission);
-            }
+            Permission permission = new Permission("rwhitelist");
+            permission.setDefault(Permission.DEFAULT_PERMISSION);
+
+            command.setPermission(permission.getName());
+            pm.addPermission(permission);
+
             map.register("minecraft", command);
         } catch (Exception e) {
             e.printStackTrace();
