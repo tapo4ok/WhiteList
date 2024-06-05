@@ -1,0 +1,4 @@
+name: ${name}
+version: '${version}'
+main: mdk.whitelist.bungee.WhiteListPlugin
+author: TaPo4oK
