@@ -1,6 +1,5 @@
 package mdk.whitelist;
 
-import mdk.mutils.api.config.Static;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -34,11 +33,11 @@ public class Event implements Listener {
         if (p != null) {
             WhiteListConfig config = WhiteList.config.getConfig();
             if (!b(p.getName())) {
-                e.disallow(PlayerLoginEvent.Result.KICK_FULL, Static.lang.format("char.kick"));
+                e.disallow(PlayerLoginEvent.Result.KICK_FULL, WhiteList.lang.format("char.kick"));
             }
             if (config.enable) {
                 if (!(WhiteList.list.contains(p.getName()))) {
-                    e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, Static.lang.format("whitelist.kick"));
+                    e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, WhiteList.lang.format("whitelist.kick"));
                 }
             }
         }

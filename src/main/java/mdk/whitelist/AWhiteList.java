@@ -2,7 +2,7 @@ package mdk.whitelist;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import mdk.mutils.api.config.Static;
+import mdk.mutils.Static;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

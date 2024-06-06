@@ -1,6 +1,5 @@
 package mdk.whitelist.bungee;
 
-import mdk.mutils.api.config.Static;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.PendingConnection;
 import net.md_5.bungee.api.event.PreLoginEvent;
@@ -33,12 +32,12 @@ public class Event implements Listener {
     public void onLogin(PreLoginEvent event) {
         PendingConnection c = event.getConnection();
         if (!b(c.getName())) {
-            c.disconnect(new TextComponent(Static.lang.format("char.kick")));
+            c.disconnect(new TextComponent(WhiteListPlugin.lang.format("char.kick")));
             event.setCancelled(true);
         }
         if (WhiteListPlugin.config.getConfig().enable) {
             if (!(WhiteListPlugin.list.contains(c.getName()))) {
-                c.disconnect(new TextComponent(Static.lang.format("whitelist.kick")));
+                c.disconnect(new TextComponent(WhiteListPlugin.lang.format("whitelist.kick")));
                 event.setCancelled(true);
             }
         }

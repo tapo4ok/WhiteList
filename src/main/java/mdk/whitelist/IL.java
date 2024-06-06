@@ -1,6 +1,6 @@
 package mdk.whitelist;
 
-import mdk.mutils.api.config.SimpleConfig;
+import mdk.mutils.config.SimpleConfig;
 
 public interface IL {
     SimpleConfig<WhiteListConfig> getConfig0();

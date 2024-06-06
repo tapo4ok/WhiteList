@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'mdk'
-version = '1-a3'
+version = '1-a4'
 
 repositories {
     mavenCentral()
@@ -22,6 +22,9 @@ repositories {
     maven {
         url 'https://oss.sonatype.org/content/repositories/snapshots'
     }
+    maven {
+        url 'https://jitpack.io/'
+    }
 }
 
 dependencies {
@@ -30,6 +33,8 @@ dependencies {
     implementation 'com.mojang:authlib:1.5.25'
 
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
+
+    implementation 'com.github.tapo4ok:MUtilsGlobal:0-a1f'
 }
 
 def targetJavaVersion = 8

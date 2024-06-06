@@ -1,8 +1,10 @@
 package mdk.whitelist;
 
-import mdk.mutils.api.config.Config;
-import mdk.mutils.api.config.SimpleConfig;
-import mdk.mutils.api.config.Static;
+import mdk.mutils.Anot;
+import mdk.mutils.config.Config;
+import mdk.mutils.config.SimpleConfig;
+import mdk.mutils.lang.ILang;
+import mdk.mutils.lang.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -13,13 +15,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.lang.reflect.Field;
 
 public final class WhiteList extends JavaPlugin implements IL {
+    @Config.Instance
     public static SimpleConfig<WhiteListConfig> config;
+    @Lang
+    public static ILang lang;
     public static AWhiteList list;
 
     @Override
     public void onEnable() {
-        config = new SimpleConfig<>(WhiteListConfig.class, Config.Type.JSON, getLogger(), getDataFolder());
-        Static.lang.load(this.getClassLoader().getResourceAsStream(String.format("%s.txt", config.getConfig().lang)));
+        Anot.init(this);
+        lang.load(this.getClassLoader().getResourceAsStream(String.format("%s.txt", config.getConfig().lang)));
 
         list = new AWhiteList(this);
         PluginManager pm = Bukkit.getServer().getPluginManager();

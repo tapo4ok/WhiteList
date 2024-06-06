@@ -3,3 +3,5 @@ version: '${version}'
 main: mdk.whitelist.WhiteList
 load: STARTUP
 author: TaPo4oK
+depends:
+  - MUtilsGlobal

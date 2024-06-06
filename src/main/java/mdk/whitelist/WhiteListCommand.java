@@ -1,8 +1,7 @@
 package mdk.whitelist;
 
 import com.google.common.collect.ImmutableList;
-import mdk.mutils.api.config.SimpleConfig;
-import mdk.mutils.api.config.Static;
+import mdk.mutils.config.SimpleConfig;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -42,7 +41,7 @@ public class WhiteListCommand extends Command {
             {
                 SimpleConfig<WhiteListConfig> config = WhiteList.config;
                 config.getConfig().enable = false;
-                sender.sendMessage(Static.lang.format("whitelist.set", false));
+                sender.sendMessage(WhiteList.lang.format("whitelist.set", false));
                 try {
                     config.Save();
                 } catch (Exception e) {
@@ -54,7 +53,7 @@ public class WhiteListCommand extends Command {
             {
                 SimpleConfig<WhiteListConfig> config = WhiteList.config;
                 config.getConfig().enable = true;
-                sender.sendMessage(Static.lang.format("whitelist.set", true));
+                sender.sendMessage(WhiteList.lang.format("whitelist.set", true));
                 try {
                     config.Save();
                 } catch (Exception e) {
@@ -64,19 +63,19 @@ public class WhiteListCommand extends Command {
             }
             case "add": {
                 if (WhiteList.list.add(args[1])) {
-                    sender.sendMessage(Static.lang.format("whitelist.add", args[1]));
+                    sender.sendMessage(WhiteList.lang.format("whitelist.add", args[1]));
                 }
                 else {
-                    sender.sendMessage(Static.lang.get("whitelist.err"));
+                    sender.sendMessage(WhiteList.lang.get("whitelist.err"));
                 }
                 break;
             }
             case "remove": {
                 if (WhiteList.list.remove(args[1])) {
-                    sender.sendMessage(Static.lang.format("whitelist.remove", args[1]));
+                    sender.sendMessage(WhiteList.lang.format("whitelist.remove", args[1]));
                 }
                 else {
-                    sender.sendMessage(Static.lang.get("whitelist.err"));
+                    sender.sendMessage(WhiteList.lang.get("whitelist.err"));
                 }
                 break;
             }

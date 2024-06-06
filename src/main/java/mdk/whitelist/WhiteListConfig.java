@@ -1,7 +1,7 @@
 package mdk.whitelist;
 
 import com.google.gson.annotations.SerializedName;
-import mdk.mutils.api.config.Config;
+import mdk.mutils.config.Config;
 
 @Config
 @Config.Package
