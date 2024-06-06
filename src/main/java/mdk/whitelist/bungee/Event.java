@@ -36,7 +36,7 @@ public class Event implements Listener {
             event.setCancelled(true);
         }
         if (WhiteListPlugin.config.getConfig().enable) {
-            if (!(WhiteListPlugin.list.contains(c.getName()))) {
+            if (!(WhiteListPlugin.list.is(c.getName()))) {
                 c.disconnect(new TextComponent(WhiteListPlugin.lang.format("whitelist.kick")));
                 event.setCancelled(true);
             }

@@ -36,7 +36,7 @@ public class Event implements Listener {
                 e.disallow(PlayerLoginEvent.Result.KICK_FULL, WhiteList.lang.format("char.kick"));
             }
             if (config.enable) {
-                if (!(WhiteList.list.contains(p.getName()))) {
+                if (!(WhiteList.list.is(p.getName()))) {
                     e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, WhiteList.lang.format("whitelist.kick"));
                 }
             }

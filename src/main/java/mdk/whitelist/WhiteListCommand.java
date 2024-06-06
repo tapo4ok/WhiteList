@@ -17,7 +17,6 @@ public class WhiteListCommand extends Command {
             "on",
             "add",
             "remove",
-            "load",
             "list",
             "char"
     };
@@ -62,7 +61,7 @@ public class WhiteListCommand extends Command {
                 break;
             }
             case "add": {
-                if (WhiteList.list.add(args[1])) {
+                if (WhiteList.list.addUser(args[1])) {
                     sender.sendMessage(WhiteList.lang.format("whitelist.add", args[1]));
                 }
                 else {
@@ -71,7 +70,7 @@ public class WhiteListCommand extends Command {
                 break;
             }
             case "remove": {
-                if (WhiteList.list.remove(args[1])) {
+                if (WhiteList.list.removeUser(args[1])) {
                     sender.sendMessage(WhiteList.lang.format("whitelist.remove", args[1]));
                 }
                 else {
@@ -81,10 +80,6 @@ public class WhiteListCommand extends Command {
             }
             case "list": {
                 sender.sendMessage(WhiteList.list.toString());
-                break;
-            }
-            case "load": {
-                WhiteList.list.load();
                 break;
             }
             case "char": {

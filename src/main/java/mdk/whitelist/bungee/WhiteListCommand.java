@@ -17,7 +17,6 @@ public class WhiteListCommand extends Command implements TabExecutor {
             "on",
             "add",
             "remove",
-            "load",
             "list",
             "char"
     };
@@ -64,7 +63,7 @@ public class WhiteListCommand extends Command implements TabExecutor {
                 break;
             }
             case "add": {
-                if (WhiteListPlugin.list.add(args[1])) {
+                if (WhiteListPlugin.list.addUser(args[1])) {
                     sender.sendMessage(new TextComponent(WhiteListPlugin.lang.format("whitelist.add", args[1])));
                 }
                 else {
@@ -73,7 +72,7 @@ public class WhiteListCommand extends Command implements TabExecutor {
                 break;
             }
             case "remove": {
-                if (WhiteListPlugin.list.remove(args[1])) {
+                if (WhiteListPlugin.list.removeUser(args[1])) {
                     sender.sendMessage(new TextComponent(WhiteListPlugin.lang.format("whitelist.remove", args[1])));
                 }
                 else {
@@ -83,10 +82,6 @@ public class WhiteListCommand extends Command implements TabExecutor {
             }
             case "list": {
                 sender.sendMessage(new TextComponent(WhiteListPlugin.list.toString()));
-                break;
-            }
-            case "load": {
-                WhiteListPlugin.list.load();
                 break;
             }
             case "char": {

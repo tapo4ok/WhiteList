@@ -5,6 +5,8 @@ import mdk.mutils.config.Config;
 import mdk.mutils.config.SimpleConfig;
 import mdk.mutils.lang.ILang;
 import mdk.mutils.lang.Lang;
+import mdk.whitelist.storge.AWhiteList;
+import mdk.whitelist.storge.IData;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -19,14 +21,17 @@ public final class WhiteList extends JavaPlugin implements IL {
     public static SimpleConfig<WhiteListConfig> config;
     @Lang
     public static ILang lang;
-    public static AWhiteList list;
+    public static IData list;
 
     @Override
     public void onEnable() {
         Anot.init(this);
         lang.load(this.getClassLoader().getResourceAsStream(String.format("%s.txt", config.getConfig().lang)));
-
-        list = new AWhiteList(this);
+        try {
+            list = (IData) Class.forName(config.getConfig().storage_type).getConstructor(IL.class).newInstance(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         PluginManager pm = Bukkit.getServer().getPluginManager();
 
         try {
@@ -54,11 +59,11 @@ public final class WhiteList extends JavaPlugin implements IL {
     @Override
     public void onDisable() {
         try {
+            list.close();
             config.Save();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        list.save();
     }
 
     @Override

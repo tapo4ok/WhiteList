@@ -16,4 +16,5 @@ public class WhiteListConfig {
     public String file = "whitelist_reload";
     @SerializedName("lang")
     public String lang = "en";
+    public String storage_type = "mdk.whitelist.storge.AWhiteList";
 }

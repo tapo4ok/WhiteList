@@ -1,8 +1,9 @@
-package mdk.whitelist;
+package mdk.whitelist.storge;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import mdk.mutils.Static;
+import mdk.whitelist.IL;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +14,27 @@ import java.util.Iterator;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-public class AWhiteList extends ArrayList<String> {
+public class AWhiteList extends ArrayList<String> implements IData {
+    @Override
+    public void close() throws IOException {
+        save();
+    }
+
+    @Override
+    public boolean addUser(String name) {
+        return add(name);
+    }
+
+    @Override
+    public boolean is(String name) {
+        return contains(name);
+    }
+
+    @Override
+    public boolean removeUser(String name) {
+        return remove(name);
+    }
+
     public IL il;
     public AWhiteList(IL il) {
         this.il = il;
@@ -64,16 +85,6 @@ public class AWhiteList extends ArrayList<String> {
     }
 
     @Override
-    public void add(int index, String element) {
-        throw new RuntimeException("This function deseble");
-    }
-
-    @Override
-    public String remove(int index) {
-        throw new RuntimeException("This function deseble");
-    }
-
-    @Override
     public boolean remove(Object o) {
         if (super.remove(o)) {
             save();
@@ -100,15 +111,9 @@ public class AWhiteList extends ArrayList<String> {
         if (super.removeAll(c)) {
             save();
             return true;
-        }
-        else {
+        } else {
             return false;
         }
-    }
-
-    @Override
-    public boolean addAll(int index, Collection<? extends String> c) {
-        throw new RuntimeException("This function deseble");
     }
 
     @Override
@@ -120,11 +125,6 @@ public class AWhiteList extends ArrayList<String> {
         else {
             return false;
         }
-    }
-
-    @Override
-    public String set(int index, String element) {
-        throw new RuntimeException("This function deseble");
     }
 
     @Override
