@@ -1,4 +1,5 @@
 WhiteList Reload replaces the vanilla whitelist (set replace.vanilla to true in the plugin settings; default: false). It checks players not by username and UUID, but by username. This fixes an issue on pirate servers where adding a player to the whitelist results in a connection error stating that the player is not on the whitelist.
+Dency: https://github.com/tapo4ok/MUtilsGlobal
 
 replace.vanilla = true
 Permission: minecraft.command.whitelist
