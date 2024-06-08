@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'mdk'
-version = '1-a4'
+version = '1-a4fa'
 
 repositories {
     mavenCentral()

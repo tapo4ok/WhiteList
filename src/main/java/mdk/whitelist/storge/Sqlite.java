@@ -10,7 +10,7 @@ public class Sqlite implements IData {
 
     public Sqlite(IL il) {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:" + "whitelist.db");
+            connection = DriverManager.getConnection(String.format("jdbc:sqlite:%s.db", il.getConfig0().getConfig().file));
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate("CREATE TABLE IF NOT EXISTS players (name TEXT PRIMARY KEY)");
             }

@@ -17,7 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.lang.reflect.Field;
 
 public final class WhiteList extends JavaPlugin implements IL {
-    @Config.Instance
+    @Config.Instance("mdk.whitelist.WhiteListConfig")
     public static SimpleConfig<WhiteListConfig> config;
     @Lang
     public static ILang lang;
