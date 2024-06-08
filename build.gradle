@@ -34,7 +34,7 @@ dependencies {
 
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
 
-    implementation 'com.github.tapo4ok:MUtilsGlobal:0-a1f'
+    implementation 'com.github.tapo4ok:MUtilsGlobal:0-a1.1'
 }
 
 def targetJavaVersion = 8

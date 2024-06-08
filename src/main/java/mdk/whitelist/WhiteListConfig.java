@@ -1,10 +1,11 @@
 package mdk.whitelist;
 
 import com.google.gson.annotations.SerializedName;
-import mdk.mutils.config.Config;
+import mdk.mutils.annotations.Config;
+import mdk.mutils.annotations.Package;
 
 @Config
-@Config.Package
+@Package
 public class WhiteListConfig {
     @SerializedName("enable")
     public boolean enable = false;

@@ -1,10 +1,10 @@
 package mdk.whitelist;
 
 import mdk.mutils.Anot;
-import mdk.mutils.config.Config;
+import mdk.mutils.annotations.Config;
 import mdk.mutils.config.SimpleConfig;
 import mdk.mutils.lang.ILang;
-import mdk.mutils.lang.Lang;
+import mdk.mutils.annotations.Lang;
 import mdk.whitelist.storge.AWhiteList;
 import mdk.whitelist.storge.IData;
 import org.bukkit.Bukkit;
