@@ -18,4 +18,5 @@ public class WhiteListConfig {
     @SerializedName("lang")
     public String lang = "en";
     public String storage_type = "mdk.whitelist.storge.AWhiteList";
+    public String mysql_bd = "deprecated";
 }

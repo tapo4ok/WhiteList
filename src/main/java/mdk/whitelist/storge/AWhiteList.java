@@ -3,18 +3,14 @@ package mdk.whitelist.storge;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import mdk.mutils.Static;
+import mdk.mutils.lang.ILang;
 import mdk.whitelist.IL;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
+import java.util.*;
 
-public class AWhiteList extends ArrayList<String> implements IData {
+public class AWhiteList extends ArrayList<String> implements IData<String> {
     @Override
     public void close() throws IOException {
         save();
@@ -22,6 +18,9 @@ public class AWhiteList extends ArrayList<String> implements IData {
 
     @Override
     public boolean addUser(String name) {
+        if (is(name)) {
+            return false;
+        }
         return add(name);
     }
 
@@ -32,12 +31,17 @@ public class AWhiteList extends ArrayList<String> implements IData {
 
     @Override
     public boolean removeUser(String name) {
+        if (!is(name)) {
+            return false;
+        }
         return remove(name);
     }
 
     public IL il;
-    public AWhiteList(IL il) {
+    public ILang lang;
+    public AWhiteList(IL il, ILang lang) {
         this.il = il;
+        this.lang = lang;
         if (!(size()>0)) {
             load();
         }
@@ -74,7 +78,6 @@ public class AWhiteList extends ArrayList<String> implements IData {
 
     @Override
     public boolean add(String s) {
-        if (contains(s)) return false;
         if (super.add(s)) {
             save();
             return true;
@@ -89,40 +92,7 @@ public class AWhiteList extends ArrayList<String> implements IData {
         if (super.remove(o)) {
             save();
             return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends String> c) {
-        if (super.addAll(c)) {
-            save();
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        if (super.removeAll(c)) {
-            save();
-            return true;
         } else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean removeIf(Predicate<? super String> filter) {
-        if (super.removeIf(filter)) {
-            save();
-            return true;
-        }
-        else {
             return false;
         }
     }
@@ -134,8 +104,32 @@ public class AWhiteList extends ArrayList<String> implements IData {
     }
 
     @Override
-    public void replaceAll(UnaryOperator<String> operator) {
-        super.replaceAll(operator);
-        save();
+    public List<String> toList() {
+        return this;
+    }
+
+    @Override
+    public boolean is(String name, ActionInfo info) {
+        return contains(name);
+    }
+
+    @Override
+    public boolean removeUser(String name, ActionInfo info) {
+        if (!is(name)) {
+            info.addStackTrans("data.error.remove", ActionInfo.ERROR, lang, name);
+            info.cancel = true;
+            return false;
+        }
+        return remove(name);
+    }
+
+    @Override
+    public boolean addUser(String name, ActionInfo info) {
+        if (is(name)) {
+            info.addStackTrans("data.error.add", ActionInfo.ERROR, lang, name);
+            info.cancel = true;
+            return false;
+        }
+        return add(name);
     }
 }

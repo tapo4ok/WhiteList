@@ -2,6 +2,7 @@ package mdk.whitelist;
 
 import com.google.common.collect.ImmutableList;
 import mdk.mutils.config.SimpleConfig;
+import mdk.whitelist.storge.ActionInfo;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -18,7 +19,8 @@ public class WhiteListCommand extends Command {
             "add",
             "remove",
             "list",
-            "char"
+            "char",
+            "help"
     };
 
     private final String[] w2 = new String[] {
@@ -61,25 +63,31 @@ public class WhiteListCommand extends Command {
                 break;
             }
             case "add": {
-                if (WhiteList.list.addUser(args[1])) {
+                ActionInfo info = new ActionInfo();
+                if (WhiteList.list.addUser(args[1], info)) {
                     sender.sendMessage(WhiteList.lang.format("whitelist.add", args[1]));
                 }
                 else {
-                    sender.sendMessage(WhiteList.lang.get("whitelist.err"));
+                    for (StackTraceElement element : info.elements) {
+                        sender.sendMessage(String.format("%s:%s", info.getLevel(element), element.getMethodName()));
+                    }
                 }
                 break;
             }
             case "remove": {
-                if (WhiteList.list.removeUser(args[1])) {
+                ActionInfo info = new ActionInfo();
+                if (WhiteList.list.removeUser(args[1], info)) {
                     sender.sendMessage(WhiteList.lang.format("whitelist.remove", args[1]));
                 }
                 else {
-                    sender.sendMessage(WhiteList.lang.get("whitelist.err"));
+                    for (StackTraceElement element : info.elements) {
+                        sender.sendMessage(String.format("%s:%s", info.getLevel(element), element.getMethodName()));
+                    }
                 }
                 break;
             }
             case "list": {
-                sender.sendMessage(WhiteList.list.toString());
+                sender.sendMessage(WhiteList.list.toList().toString());
                 break;
             }
             case "char": {
@@ -91,6 +99,16 @@ public class WhiteListCommand extends Command {
                     e.printStackTrace();
                 }
                 sender.sendMessage("char set " + args[1]);
+                break;
+            }
+            case "help": {
+                sender.sendMessage(new String[]{
+                        String.format("1: /%s add <user_name>; remove user in whitelist", getName()),
+                        String.format("2: /%s remove <user_name>; add user to whitelist", getName()),
+                        String.format("3: /%s list; get player list in whitelist", getName()),
+                        String.format("4: /%s on; enable whitelist", getName()),
+                        String.format("5: /%s off; disable whitelist", getName()),
+                });
                 break;
             }
         }

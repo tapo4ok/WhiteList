@@ -5,7 +5,6 @@ import mdk.mutils.annotations.Config;
 import mdk.mutils.config.SimpleConfig;
 import mdk.mutils.lang.ILang;
 import mdk.mutils.annotations.Lang;
-import mdk.whitelist.storge.AWhiteList;
 import mdk.whitelist.storge.IData;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -28,7 +27,7 @@ public final class WhiteList extends JavaPlugin implements IL {
         Anot.init(this);
         lang.load(this.getClassLoader().getResourceAsStream(String.format("%s.txt", config.getConfig().lang)));
         try {
-            list = (IData) Class.forName(config.getConfig().storage_type).getConstructor(IL.class).newInstance(this);
+            list = (IData) Class.forName(config.getConfig().storage_type).getConstructor(IL.class, ILang.class).newInstance(this, lang);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -38,7 +37,6 @@ public final class WhiteList extends JavaPlugin implements IL {
             Field commandMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             commandMapField.setAccessible(true);
             CommandMap map = (CommandMap)commandMapField.get(Bukkit.getServer());
-
 
             Command command = new WhiteListCommand(this);
 

@@ -23,7 +23,7 @@ public class WhiteListPlugin extends Plugin implements IL {
         getProxy().getPluginManager().registerListener(this, new Event());
         this.getProxy().getPluginManager().registerCommand(this, new WhiteListCommand());
         try {
-            list = (IData) Class.forName(config.getConfig().storage_type).getConstructor(IL.class).newInstance(this);
+            list = (IData) Class.forName(config.getConfig().storage_type).getConstructor(IL.class, ILang.class).newInstance(this, lang);
         } catch (Exception e) {
             e.printStackTrace();
         }

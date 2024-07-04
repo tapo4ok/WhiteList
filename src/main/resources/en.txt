@@ -3,7 +3,7 @@
 .add=Whitelist add %s
 .remove=Whitelist remove %s
 .err=Error.
-.kick=you are not on the white list
+.kick=You are not on the white list
 #end
 
 #{spigot}
@@ -13,4 +13,11 @@
 
 #{char}
 .kick=Username not allowed
+#end
+
+#{data}
+.error.remove=%s is not in the whitelist
+.error.add=%s is already on the whitelist
+.reconnect=The database has been reconnected
+.db.error=There was an error in the database
 #end

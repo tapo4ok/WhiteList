@@ -3,6 +3,7 @@ package mdk.whitelist.bungee;
 import com.google.common.collect.ImmutableList;
 import mdk.mutils.config.SimpleConfig;
 import mdk.whitelist.WhiteListConfig;
+import mdk.whitelist.storge.ActionInfo;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
@@ -38,7 +39,6 @@ public class WhiteListCommand extends Command implements TabExecutor {
         }
         switch (args[0]) {
             case "off":
-
             {
                 SimpleConfig<WhiteListConfig> config = WhiteListPlugin.config;
                 config.getConfig().enable = false;
@@ -63,25 +63,31 @@ public class WhiteListCommand extends Command implements TabExecutor {
                 break;
             }
             case "add": {
-                if (WhiteListPlugin.list.addUser(args[1])) {
+                ActionInfo info = new ActionInfo();
+                if (WhiteListPlugin.list.addUser(args[1], info)) {
                     sender.sendMessage(new TextComponent(WhiteListPlugin.lang.format("whitelist.add", args[1])));
                 }
                 else {
-                    sender.sendMessage(new TextComponent(WhiteListPlugin.lang.get("whitelist.err")));
+                    for (StackTraceElement element : info.elements) {
+                        sender.sendMessage(new TextComponent(String.format("%s:%s", info.getLevel(element), element.getMethodName())));
+                    }
                 }
                 break;
             }
             case "remove": {
+                ActionInfo info = new ActionInfo();
                 if (WhiteListPlugin.list.removeUser(args[1])) {
                     sender.sendMessage(new TextComponent(WhiteListPlugin.lang.format("whitelist.remove", args[1])));
                 }
                 else {
-                    sender.sendMessage(new TextComponent(WhiteListPlugin.lang.get("whitelist.err")));
+                    for (StackTraceElement element : info.elements) {
+                        sender.sendMessage(new TextComponent(String.format("%s:%s", info.getLevel(element), element.getMethodName())));
+                    }
                 }
                 break;
             }
             case "list": {
-                sender.sendMessage(new TextComponent(WhiteListPlugin.list.toString()));
+                sender.sendMessage(new TextComponent(WhiteListPlugin.list.toList().toString()));
                 break;
             }
             case "char": {
